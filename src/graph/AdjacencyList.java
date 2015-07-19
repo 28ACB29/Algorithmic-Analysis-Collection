@@ -6,6 +6,7 @@ package graph;
  */
 
 
+import constants.Constants;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
@@ -258,18 +259,18 @@ public class AdjacencyList {
 
         //Set every Node except the Source Node to the same Value
         for (int i = 0; i < source; i++) {
-            output.get(i).setColor(white);
-            output.get(i).setDistance(outOfBoundsValue);
+            output.get(i).setColor(Constants.white);
+            output.get(i).setDistance(Constants.outOfBoundsValue);
             output.get(i).setPredecessor(null);
         }
         for (int i = source + 1; i < graph.getLength(); i++) {
-            output.get(i).setColor(white);
-            output.get(i).setDistance(outOfBoundsValue);
+            output.get(i).setColor(Constants.white);
+            output.get(i).setDistance(Constants.outOfBoundsValue);
             output.get(i).setPredecessor(null);
         }
 
         //Set Source Node to different Values
-        output.get(source).setColor(gray);
+        output.get(source).setColor(Constants.gray);
         output.get(source).setDistance(0);
         output.get(source).setPredecessor(null);
 
@@ -289,14 +290,14 @@ public class AdjacencyList {
                 neighborNode = output.get(neighbor);
 
                 //If the Vertex Colcr is White
-                if (neighborNode.getColor().equals(white)) {
-                    neighborNode.setColor(gray);
+                if (neighborNode.getColor().equals(Constants.white)) {
+                    neighborNode.setColor(Constants.gray);
                     neighborNode.setDistance(vertex.getDistance() + 1);
                     neighborNode.setPredecessor(vertex);
                     queue.addLast(neighborNode);
                 }
             }
-            vertex.setColor(black);
+            vertex.setColor(Constants.black);
         }
         return output;
     }
@@ -311,7 +312,7 @@ public class AdjacencyList {
         final int length;
         VertexNode predecessor;
         length = adjacencyList.getLength();
-        output.append(vertex).append(separator).append(Assignment8.predecessor).append(separator).append(distance).append(newline);
+        output.append(Constants.vertex).append(Constants.separator).append(Assignment8.predecessor).append(Constants.separator).append(Constants.distance).append(Constants.newline);
 
         //Go through all the Vertices
         for (int i = 0; i < length; i++) {
@@ -321,11 +322,11 @@ public class AdjacencyList {
             if (predecessor != null) {
 
                 //Print out the Vertex, Predecessor, and Shortest Distance
-                output.append(i).append(separator).append(predecessor.getVertex()).append(separator).append(adjacencyList.get(i).getDistance()).append(newline);
+                output.append(i).append(Constants.separator).append(predecessor.getVertex()).append(Constants.separator).append(adjacencyList.get(i).getDistance()).append(Constants.newline);
             } else {
 
                 //Otherwise print out the Vertex and Shortest Distance
-                output.append(i).append(separator).append(separator).append(adjacencyList.get(i).getDistance()).append(newline);
+                output.append(i).append(Constants.separator).append(Constants.separator).append(adjacencyList.get(i).getDistance()).append(Constants.newline);
             }
         }
         return output.toString();
@@ -347,18 +348,18 @@ public class AdjacencyList {
             k = 0;
             neigbors = adjacencyList.getNeighbors(i);
             size = neigbors.size();
-            output.append(vertex).append(i).append(separator);
+            output.append(Constants.vertex).append(i).append(Constants.separator);
 
             //Go through and generate the String
             for (int j = 0; j < length; j++) {
                 if (k < size  && neigbors.get(k) == j) {
-                    output.append(neigbors.get(k)).append(separator);
+                    output.append(neigbors.get(k)).append(Constants.separator);
                     k++;
                 } else {
-                    output.append(separator);
+                    output.append(Constants.separator);
                 }
             }
-            output.append(newline);
+            output.append(Constants.newline);
         }
         return output.toString();
     }

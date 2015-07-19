@@ -2,6 +2,7 @@ package sort;
 
 
 
+import constants.Constants;
 import java.util.ArrayList;
 
 /*
@@ -568,11 +569,11 @@ public class Sort {
 
         //Go through and generate the String leaving the Last Member off
         for (int i = 0; i < lastIndex; i++) {
-            output.append(input[i]).append(separator);
+            output.append(input[i]).append(Constants.separator);
         }
 
         //Check if the Queue is Empty
-        if (lastIndex > outOfBoundsIndex) {
+        if (lastIndex > Constants.outOfBoundsIndex) {
 
             //Append the Last Element
             output.append(input[lastIndex]);

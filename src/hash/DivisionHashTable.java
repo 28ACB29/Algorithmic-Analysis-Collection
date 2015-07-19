@@ -1,5 +1,7 @@
 package hash;
 
+import constants.Constants;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -158,7 +160,7 @@ public class DivisionHashTable {
         } else {
             output.append("unsuccesful.");
         }
-        return output.append(newline).toString();
+        return output.append(Constants.newline).toString();
     }
 
     /**
@@ -168,10 +170,10 @@ public class DivisionHashTable {
      */
     public static String formatDivisionHashTable(DivisionHashTable divide) {
         StringBuilder output = new StringBuilder();
-        output.append(divisionHashTableTitle).append(newline).append(newline);
+        output.append(Constants.divisionHashTableTitle).append(Constants.newline).append(Constants.newline);
         for (int i = 0; i < divide.getSize(); i++) {
-            output.append(element).append(i).append(Node.formatList(divide.get(i)));
+            output.append(Constants.element).append(i).append(Node.formatList(divide.get(i)));
         }
-        return output.append(newline).toString();
+        return output.append(Constants.newline).toString();
     }
 }

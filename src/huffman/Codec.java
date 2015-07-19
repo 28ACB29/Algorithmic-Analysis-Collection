@@ -1,5 +1,7 @@
 package huffman;
 
+import constants.Constants;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -293,7 +295,7 @@ public class Codec {
         final String codecFixedLengthEncoding;
         final int lastIndex;
         String code;
-        output.append("Message: ").append(message).append(newline).append(characters);
+        output.append("Message: ").append(message).append(Constants.newline).append(characters);
         codec = new Codec(message);
         codecFrequencies = codec.getFrequencies();
         codecEncodings = codec.getEncodings();
@@ -302,63 +304,63 @@ public class Codec {
 
         //Display characters
         for (int i = 0; i < lastIndex; i++) {
-            output.append(Codec.characters[i]).append(separator);
+            output.append(Codec.characters[i]).append(Constants.separator);
         }
 
         //Finish the Row
-        output.append(Codec.characters[lastIndex]).append(newline);
+        output.append(Codec.characters[lastIndex]).append(Constants.newline);
 
         //Display frequencies
         output.append(Assignment7.frequencies);
         for (int i = 0; i < lastIndex; i++) {
-            output.append(codecFrequencies[i]).append(separator);
+            output.append(codecFrequencies[i]).append(Constants.separator);
         }
 
         //Finish the Row
-        output.append(codecFrequencies[lastIndex]).append(newline);
+        output.append(codecFrequencies[lastIndex]).append(Constants.newline);
 
         //Display codes
-        output.append(codes);
+        output.append(Constants.codes);
         for (int i = 0; i < lastIndex; i++) {
-            output.append(codecEncodings[i]).append(separator);
+            output.append(codecEncodings[i]).append(Constants.separator);
         }
 
         //Finish the Row
-        output.append(codecEncodings[lastIndex]).append(newline);
+        output.append(codecEncodings[lastIndex]).append(Constants.newline);
 
         //Display encoded and decoded message
         code = codec.encode(message);
-        output.append(encodedMessage).append(code).append(newline);
-        output.append(codeLength).append(code.length()).append(newline);
-        output.append(decodedMessage).append(codec.decode(code)).append(newline);
-        output.append(newline);
+        output.append(Constants.encodedMessage).append(code).append(Constants.newline);
+        output.append(Constants.codeLength).append(code.length()).append(Constants.newline);
+        output.append(Constants.decodedMessage).append(codec.decode(code)).append(Constants.newline);
+        output.append(Constants.newline);
 
         //Do Fixed Length encoding and decoding
-        output.append("Message: ").append(message).append(newline);
+        output.append("Message: ").append(message).append(Constants.newline);
         output.append(characters);
 
         //Display characters
         for (int i = 0; i < lastIndex; i++) {
-            output.append(Codec.characters[i]).append(separator);
+            output.append(Codec.characters[i]).append(Constants.separator);
         }
 
         //Finish the Row
-        output.append(Codec.characters[lastIndex]).append(newline);
+        output.append(Codec.characters[lastIndex]).append(Constants.newline);
 
         //Display Fixed Length codes
-        output.append(fixedLengthCodes);
+        output.append(Constants.fixedLengthCodes);
         for (int i = 0; i < lastIndex; i++) {
-            output.append(Codec.fixedLengthEncodings[i]).append(separator);
+            output.append(Codec.fixedLengthEncodings[i]).append(Constants.separator);
         }
 
         //Finish the Row
-        output.append(Codec.fixedLengthEncodings[lastIndex]).append(newline);
+        output.append(Codec.fixedLengthEncodings[lastIndex]).append(Constants.newline);
 
         //Display encoded and decoded Fixed Length message
-        output.append(fixedLengthEncodedMessage).append(codecFixedLengthEncoding).append(newline);
-        output.append(fixedLengthCodeLength).append(codecFixedLengthEncoding.length()).append(newline);
-        output.append(fixedLengthDecodedMessage).append(codec.fixedLengthDecoding(codecFixedLengthEncoding)).append(newline);
-        output.append(newline);
+        output.append(Constants.fixedLengthEncodedMessage).append(codecFixedLengthEncoding).append(Constants.newline);
+        output.append(Constants.fixedLengthCodeLength).append(codecFixedLengthEncoding.length()).append(Constants.newline);
+        output.append(Constants.fixedLengthDecodedMessage).append(codec.fixedLengthDecoding(codecFixedLengthEncoding)).append(Constants.newline);
+        output.append(Constants.newline);
         return output.toString();
     }
 }

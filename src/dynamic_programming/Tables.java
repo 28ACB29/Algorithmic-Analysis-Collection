@@ -1,5 +1,7 @@
 package dynamic_programming;
 
+import constants.Constants;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -123,10 +125,10 @@ public class Tables {
     public static String formatDimensions(int[] dimensions) {
         StringBuilder output = new StringBuilder();
         final int lastIndex;
-        output.append(matrixChain).append(newline).append(newline);
+        output.append(Constants.matrixChain).append(Constants.newline).append(Constants.newline);
         lastIndex = dimensions.length - 1;
         for (int i = 0; i < lastIndex; i++) {
-            output.append(matrix).append(i + 1).append(colon).append(dimensions[i]).append(multiplicationSign).append(dimensions[i + 1]).append(newline);
+            output.append(Constants.matrix).append(i + 1).append(Constants.colon).append(dimensions[i]).append(Constants.multiplicationSign).append(dimensions[i + 1]).append(Constants.newline);
         }
         return output.toString();
     }
@@ -140,27 +142,27 @@ public class Tables {
         StringBuilder output = new StringBuilder();
         final int rowLength;
         final int columnLength;
-        output.append(space).append(separator);
+        output.append(Constants.space).append(Constants.separator);
         rowLength = table.length;
         columnLength = table[0].length;
 
         //Go Through and generate the Columns leaving the last Column off
         for (int i = 0; i < columnLength; i++) {
-            output.append(i + 1).append(separator);
+            output.append(i + 1).append(Constants.separator);
         }
 
         //Finish the Row
-        output.append(newline);
+        output.append(Constants.newline);
 
         //Go through and generate the String leaving the last Member off
         for (int i = 0; i < rowLength; i++) {
-            output.append(i + 1).append(separator);
+            output.append(i + 1).append(Constants.separator);
             for (int j = 0; j < columnLength; j++) {
-                output.append(table[i][j]).append(separator);
+                output.append(table[i][j]).append(Constants.separator);
             }
 
             //Finish the Row
-            output.append(newline);
+            output.append(Constants.newline);
         }
         return output.toString();
     }
@@ -210,12 +212,12 @@ public class Tables {
     public static String printOptimalParens(int[][] order, int i, int j) {
         StringBuilder Output = new StringBuilder();
         if (i == j) {
-            Output.append(matrix).append(i + 1);
+            Output.append(Constants.matrix).append(i + 1);
         } else {
-            Output.append(left);
+            Output.append(Constants.left);
             Output.append(printOptimalParens(order, i, order[i][j]));
             Output.append(printOptimalParens(order, order[i][j] + 1, j));
-            Output.append(right);
+            Output.append(Constants.right);
         }
         return Output.toString();
     }

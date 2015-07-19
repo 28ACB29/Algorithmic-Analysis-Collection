@@ -6,6 +6,7 @@ package graph;
  */
 
 
+import constants.Constants;
 import java.util.ArrayList;
 
 /**
@@ -177,18 +178,18 @@ public class AdjacencyMatrix {
             k = 0;
             neigbors = adjacencyMatrix.getNeighbors(i);
             size = neigbors.size();
-            output.append(vertex).append(i).append(separator);
+            output.append(Constants.vertex).append(i).append(Constants.separator);
 
             //Go through and generate the String
             for (int j = 0; j < length; j++) {
                 if (k < size  && neigbors.get(k) == j) {
-                    output.append(neigbors.get(k)).append(separator);
+                    output.append(neigbors.get(k)).append(Constants.separator);
                     k++;
                 } else {
-                    output.append(separator);
+                    output.append(Constants.separator);
                 }
             }
-            output.append(newline);
+            output.append(Constants.newline);
         }
         return output.toString();
     }

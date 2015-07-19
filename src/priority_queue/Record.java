@@ -1,5 +1,7 @@
 package priority_queue;
 
+import constants.Constants;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -112,7 +114,7 @@ public class Record {
      */
     public static String displayRecord(Record Record) {
         StringBuilder output = new StringBuilder();
-        return output.append(recordNumber).append(Record.getNumber()).append(separator).append(recordName).append(Record.getName()).append(separator).append(recordPriority).append(Record.getPriority()).append(separator).append(recordTime).append(Record.getTime()).append(newline).toString();
+        return output.append(Constants.recordNumber).append(Record.getNumber()).append(Constants.separator).append(Constants.recordName).append(Record.getName()).append(Constants.separator).append(Constants.recordPriority).append(Record.getPriority()).append(Constants.separator).append(Constants.recordTime).append(Record.getTime()).append(Constants.newline).toString();
     }
 
     /**
@@ -122,6 +124,6 @@ public class Record {
      */
     public static String formatRecord(Record Record) {
         StringBuilder output = new StringBuilder();
-        return output.append(Record.getNumber()).append(separator).append(Record.getName()).append(separator).append(Record.getPriority()).append(separator).append(Record.getTime()).append(newline).toString();
+        return output.append(Record.getNumber()).append(Constants.separator).append(Record.getName()).append(Constants.separator).append(Record.getPriority()).append(Constants.separator).append(Record.getTime()).append(Constants.newline).toString();
     }
 }

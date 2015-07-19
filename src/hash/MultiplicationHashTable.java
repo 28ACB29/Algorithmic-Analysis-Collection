@@ -1,5 +1,7 @@
 package hash;
 
+import constants.Constants;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -178,7 +180,7 @@ public class MultiplicationHashTable {
         } else {
             output.append("unsuccesful.");
         }
-        return output.append(newline).toString();
+        return output.append(Constants.newline).toString();
     }
 
     /**
@@ -188,10 +190,10 @@ public class MultiplicationHashTable {
      */
     public static String formatMultiplicationHashTable(MultiplicationHashTable multiply) {
         StringBuilder output = new StringBuilder();
-        output.append(multiplicationHashTableTitle).append(newline).append(newline);
+        output.append(Constants.multiplicationHashTableTitle).append(Constants.newline).append(Constants.newline);
         for (int i = 0; i < multiply.getSize(); i++) {
-            output.append(element).append(i).append(Node.formatList(multiply.get(i)));
+            output.append(Constants.element).append(i).append(Node.formatList(multiply.get(i)));
         }
-        return output.append(newline).toString();
+        return output.append(Constants.newline).toString();
     }
 }

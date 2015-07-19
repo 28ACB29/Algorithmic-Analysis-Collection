@@ -1,5 +1,7 @@
 package hash;
 
+import constants.Constants;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -98,7 +100,7 @@ public class Node {
      */
     public static String formatList(Node list) {
         StringBuilder output = new StringBuilder();
-        output.append(colon);
+        output.append(Constants.colon);
         Node cursor = list;
         Node next = null;
         if (cursor != null) {
@@ -107,7 +109,7 @@ public class Node {
 
         //Go through and generate the string leaving the Last Member off
         while (cursor != null && next != null) {
-            output.append(cursor.getValue()).append(separator);
+            output.append(cursor.getValue()).append(Constants.separator);
             cursor = next;
             next = cursor.getNext();
         }
@@ -118,6 +120,6 @@ public class Node {
             //Append the Last Member
             output.append(cursor.getValue());
         }
-        return output.append(newline).toString();
+        return output.append(Constants.newline).toString();
     }
 }

@@ -1,5 +1,7 @@
 package hash;
 
+import constants.Constants;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -124,7 +126,7 @@ public class QuadraticProbingHashTable {
         } else {
             output.append("unsuccesful.");
         }
-        return output.append(newline).toString();
+        return output.append(Constants.newline).toString();
     }
 
     /**
@@ -134,13 +136,13 @@ public class QuadraticProbingHashTable {
      */
     public static String formatQuadraticProbingHashTable(QuadraticProbingHashTable quadraticProbing) {
         StringBuilder output = new StringBuilder();
-        output.append(quadraticProbingHashTableTitle).append(newline).append(newline);
+        output.append(Constants.quadraticProbingHashTableTitle).append(Constants.newline).append(Constants.newline);
         for (int i = 0; i < quadraticProbing.getSize(); i++) {
-            output.append(element).append(i).append(colon);
+            output.append(Constants.element).append(i).append(Constants.colon);
             if (quadraticProbing.get(i) != null) {
                 output.append(quadraticProbing.get(i).getValue());
             }
-            output.append(newline);
+            output.append(Constants.newline);
         }
         return output.toString();
     }
