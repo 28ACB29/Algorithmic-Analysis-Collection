@@ -6,18 +6,20 @@ import constants.Constants;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 /**
  *
  * @author Arthur C. Baroi
  */
-public class Codec {
+public class Codec
+{
 
     /**
      * Permissible Characters for input String
      */
-    public static final char[] characters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ', '!', '\'', ',', '.'};
+    public static final char[] characters =
+    {
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ' ', '!', '\'', ',', '.'
+    };
 
     /**
      * Encodings for Characters
@@ -27,7 +29,10 @@ public class Codec {
     /**
      * Fixed Length Encodings for Characters
      */
-    public static final String[] fixedLengthEncodings = {"000000", "000001", "000010", "000011", "000100", "000101", "000110", "000111", "001000", "001001", "001010", "001011", "001100", "001101", "001110", "001111", "010000", "010001", "010010", "010011", "010100", "010101", "010110", "010111", "011000", "011001", "011010", "011011", "011100", "011101", "011110"};
+    public static final String[] fixedLengthEncodings =
+    {
+        "000000", "000001", "000010", "000011", "000100", "000101", "000110", "000111", "001000", "001001", "001010", "001011", "001100", "001101", "001110", "001111", "010000", "010001", "010010", "010011", "010100", "010101", "010110", "010111", "011000", "011001", "011010", "011011", "011100", "011101", "011110"
+    };
 
     /**
      * Frequencies for Characters
@@ -56,9 +61,11 @@ public class Codec {
 
     /**
      * Constructor
+     *
      * @param message
      */
-    public Codec(String message) {
+    public Codec(String message)
+    {
         this.message = message;
         generateFrequencies();
         this.queue = new Queue(characters, frequencies);
@@ -66,7 +73,8 @@ public class Codec {
         encodings = new String[characters.length];
         final Node Root = queue.peek();
         Node Cursor;
-        for (int i = 0; i < characters.length; i++) {
+        for(int i = 0; i < characters.length; i++)
+        {
 
             //Reset cursor to the root of the tree
             Cursor = Root;
@@ -74,24 +82,28 @@ public class Codec {
         }
     }
 
-    private String createEncodings(Node cursor, String branch, char character) {
+    private String createEncodings(Node cursor, String branch, char character)
+    {
         StringBuilder output = new StringBuilder();
 
         //If the character is found
-        if (cursor.getCharacter().equals(Character.toString(character))) {
+        if(cursor.getCharacter().equals(Character.toString(character)))
+        {
 
             //Append what Branch was taken
             output.append(branch);
         }
 
         //If there is a Left Child
-        if (cursor.getLeft() != null) {
+        if(cursor.getLeft() != null)
+        {
 
             //Go search through that Left Child
             String leftResult = createEncodings(cursor.getLeft(), zero, character);
 
             //If search was succesful
-            if (!leftResult.isEmpty()) {
+            if(!leftResult.isEmpty())
+            {
 
                 //Append what Branch was taken and the search result
                 output.append(branch).append(leftResult);
@@ -99,13 +111,15 @@ public class Codec {
         }
 
         //If there is a Right Child
-        if (cursor.getRight() != null) {
+        if(cursor.getRight() != null)
+        {
 
             //Go search through that Right Child
             String rightResult = createEncodings(cursor.getRight(), one, character);
 
             //If search was succesful
-            if (!rightResult.isEmpty()) {
+            if(!rightResult.isEmpty())
+            {
 
                 //Append what Branch was taken and the search result
                 output.append(branch).append(rightResult);
@@ -114,12 +128,14 @@ public class Codec {
         return output.toString();
     }
 
-    private void createTree() {
+    private void createTree()
+    {
         final int length = characters.length - 1;
         Node left;
         Node right;
         int frequency;
-        for (int i = 0; i < length; i++) {
+        for(int i = 0; i < length; i++)
+        {
 
             //Find the least 2 nodes
             left = queue.pop();
@@ -136,10 +152,12 @@ public class Codec {
 
     /**
      * Decodes a Coded String
+     *
      * @param code
      * @return a Decoded String
      */
-    public String decode(String code) {
+    public String decode(String code)
+    {
         StringBuilder output = new StringBuilder();
         final Node Root;
         Node Cursor;
@@ -147,23 +165,28 @@ public class Codec {
         Cursor = Root;
 
         //Go through the code
-        for (int i = 0; i < code.length(); i++) {
+        for(int i = 0; i < code.length(); i++)
+        {
 
             //If the character is a 1
-            if (Character.toString(code.charAt(i)).equals(one)) {
+            if(Character.toString(code.charAt(i)).equals(one))
+            {
 
                 //Go to the Right Child
                 Cursor = Cursor.getRight();
 
-            //If the character is a 0
-            } else {
+                //If the character is a 0
+            }
+            else
+            {
 
                 //Go to the Left Child
                 Cursor = Cursor.getLeft();
             }
 
             //If the cursor is a character
-            if (!Cursor.getCharacter().isEmpty()) {
+            if(!Cursor.getCharacter().isEmpty())
+            {
 
                 //Append Character
                 output.append(Cursor.getCharacter());
@@ -177,24 +200,30 @@ public class Codec {
 
     /**
      * Encodes a String
+     *
      * @param message
      * @return a Encoded String
      */
-    public String encode(String message) {
+    public String encode(String message)
+    {
         StringBuilder output = new StringBuilder();
 
         //Go through the message
-        for (int i = 0; i < message.length(); i++) {
+        for(int i = 0; i < message.length(); i++)
+        {
             output.append(getCharacterEncoding(message.charAt(i)));
         }
         return output.toString();
     }
 
-    private String getCharacterEncoding(char character) {
+    private String getCharacterEncoding(char character)
+    {
         String encoding;
         encoding = "";
-        for (int i = 0; i < characters.length; i++) {
-            if (character == characters[i]) {
+        for(int i = 0; i < characters.length; i++)
+        {
+            if(character == characters[i])
+            {
                 encoding = encodings[i];
             }
         }
@@ -206,7 +235,8 @@ public class Codec {
      * @param code
      * @return
      */
-    public String fixedLengthDecoding(String code) {
+    public String fixedLengthDecoding(String code)
+    {
         StringBuilder output = new StringBuilder();
         final int words;
         final int wordLength;
@@ -215,12 +245,15 @@ public class Codec {
         String encoding;
         wordLength = 6;
         words = code.length() / wordLength;
-        for (int i = 0; i < words; i++) {
+        for(int i = 0; i < words; i++)
+        {
             wordStart = wordLength * i;
             substring = code.substring(wordStart, wordStart + wordLength);
-            for (int j = 0; j < fixedLengthEncodings.length; j++) {
+            for(int j = 0; j < fixedLengthEncodings.length; j++)
+            {
                 encoding = fixedLengthEncodings[j];
-                if (substring.equals(encoding)) {
+                if(substring.equals(encoding))
+                {
                     output.append(characters[j]);
                 }
             }
@@ -232,15 +265,19 @@ public class Codec {
      *
      * @return
      */
-    public String fixedLengthEncoding() {
+    public String fixedLengthEncoding()
+    {
         StringBuilder output = new StringBuilder();
         char charAt;
         char character;
-        for (int i = 0; i < message.length(); i++) {
-            for (int j = 0; j < characters.length; j++) {
+        for(int i = 0; i < message.length(); i++)
+        {
+            for(int j = 0; j < characters.length; j++)
+            {
                 charAt = message.charAt(i);
                 character = characters[j];
-                if (charAt == character) {
+                if(charAt == character)
+                {
                     output.append(fixedLengthEncodings[j]);
                 }
             }
@@ -248,18 +285,22 @@ public class Codec {
         return output.toString();
     }
 
-    private void generateFrequencies() {
+    private void generateFrequencies()
+    {
         frequencies = new int[characters.length];
 
         //Go through all the Characters in the String
-        for (int i = 0; i < message.length(); i++) {
+        for(int i = 0; i < message.length(); i++)
+        {
 
             //Go through all the Characters in the List
-            for (int j = 0; j < frequencies.length; j++) {
+            for(int j = 0; j < frequencies.length; j++)
+            {
 
                 //If the current character in the message
                 //matches the current character
-                if (message.charAt(i) == characters[j]) {
+                if(message.charAt(i) == characters[j])
+                {
 
                     //Increment frequency
                     frequencies[j]++;
@@ -271,23 +312,27 @@ public class Codec {
     /**
      * @return The Encodings
      */
-    public String[] getEncodings() {
+    public String[] getEncodings()
+    {
         return encodings;
     }
 
     /**
      * @return The Frequencies
      */
-    public int[] getFrequencies() {
+    public int[] getFrequencies()
+    {
         return frequencies;
     }
 
     /**
      * Format a Codec
+     *
      * @param message
      * @return a Formatted Codec
      */
-    public static String formatCodec(String message) {
+    public static String formatCodec(String message)
+    {
         StringBuilder output = new StringBuilder();
         Codec codec;
         final int[] codecFrequencies;
@@ -303,7 +348,8 @@ public class Codec {
         lastIndex = Codec.characters.length - 1;
 
         //Display characters
-        for (int i = 0; i < lastIndex; i++) {
+        for(int i = 0; i < lastIndex; i++)
+        {
             output.append(Codec.characters[i]).append(Constants.separator);
         }
 
@@ -311,8 +357,9 @@ public class Codec {
         output.append(Codec.characters[lastIndex]).append(Constants.newline);
 
         //Display frequencies
-        output.append(Assignment7.frequencies);
-        for (int i = 0; i < lastIndex; i++) {
+        output.append(Constants.frequencies);
+        for(int i = 0; i < lastIndex; i++)
+        {
             output.append(codecFrequencies[i]).append(Constants.separator);
         }
 
@@ -321,7 +368,8 @@ public class Codec {
 
         //Display codes
         output.append(Constants.codes);
-        for (int i = 0; i < lastIndex; i++) {
+        for(int i = 0; i < lastIndex; i++)
+        {
             output.append(codecEncodings[i]).append(Constants.separator);
         }
 
@@ -340,7 +388,8 @@ public class Codec {
         output.append(characters);
 
         //Display characters
-        for (int i = 0; i < lastIndex; i++) {
+        for(int i = 0; i < lastIndex; i++)
+        {
             output.append(Codec.characters[i]).append(Constants.separator);
         }
 
@@ -349,7 +398,8 @@ public class Codec {
 
         //Display Fixed Length codes
         output.append(Constants.fixedLengthCodes);
-        for (int i = 0; i < lastIndex; i++) {
+        for(int i = 0; i < lastIndex; i++)
+        {
             output.append(Codec.fixedLengthEncodings[i]).append(Constants.separator);
         }
 

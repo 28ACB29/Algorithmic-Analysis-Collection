@@ -420,7 +420,10 @@ public class Constants
     /**
      * Example Matrix Dimensions from the Book
      */
-    public static final int[] dimensionBookExample = {30, 35, 15, 5, 10, 20, 25};
+    public static final int[] dimensionBookExample =
+    {
+        30, 35, 15, 5, 10, 20, 25
+    };
 
     /**
      * Length of Matrix Multiplication Chain
@@ -496,6 +499,11 @@ public class Constants
      * Right Parenthesis
      */
     public static final char right = ')';
+
+    /**
+     *
+     */
+    public static final String space = " ";
 
     /**
      * Header for the Character Row
@@ -613,7 +621,7 @@ public class Constants
     public static final String breadthFirstTreeBookExampleFile = "./breadthFirstTreeBookExample.csv";
 
     /**
-     * Probability of there being  a connection  between 2 Nodes.
+     * Probability of there being a connection between 2 Nodes.
      */
     public static final double connectionProbability = .5;
 
@@ -625,7 +633,33 @@ public class Constants
     /**
      * Example Graph from the Book
      */
-    public static final int[][] graphBookExample = {{1,4}, {0, 5}, {3, 5, 6}, {2, 6, 7}, {0}, {1, 2, 6}, {2, 3, 5, 7}, {3, 6}};
+    public static final int[][] graphBookExample =
+    {
+        {
+            1, 4
+        },
+        {
+            0, 5
+        },
+        {
+            3, 5, 6
+        },
+        {
+            2, 6, 7
+        },
+        {
+            0
+        },
+        {
+            1, 2, 6
+        },
+        {
+            2, 3, 5, 7
+        },
+        {
+            3, 6
+        }
+    };
 
     /**
      * Gray Color for the Breadth First Search

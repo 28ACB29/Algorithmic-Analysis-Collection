@@ -4,8 +4,6 @@ package io;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -15,7 +13,8 @@ import java.util.logging.Logger;
  *
  * @author Arthur C. Baroi
  */
-public class BuilderWriter {
+public class BuilderWriter
+{
 
     /**
      * File Handle
@@ -34,14 +33,19 @@ public class BuilderWriter {
 
     /**
      * Constructor
+     *
      * @param file
      */
-    public BuilderWriter(String file) {
+    public BuilderWriter(String file)
+    {
         this.builder = new StringBuilder();
         this.file = file;
-        try {
+        try
+        {
             this.writer = new FileWriter(this.file, false);
-        } catch (IOException ex) {
+        }
+        catch(IOException ex)
+        {
             Logger.getLogger(BuilderWriter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -51,7 +55,8 @@ public class BuilderWriter {
      * @param str
      * @return
      */
-    public BuilderWriter append(String str) {
+    public BuilderWriter append(String str)
+    {
         builder.append(str);
         return this;
     }
@@ -61,7 +66,8 @@ public class BuilderWriter {
      * @param b
      * @return
      */
-    public BuilderWriter append(boolean b) {
+    public BuilderWriter append(boolean b)
+    {
         builder.append(b);
         return this;
     }
@@ -71,7 +77,8 @@ public class BuilderWriter {
      * @param c
      * @return
      */
-    public BuilderWriter append(char c) {
+    public BuilderWriter append(char c)
+    {
         builder.append(c);
         return this;
     }
@@ -81,7 +88,8 @@ public class BuilderWriter {
      * @param d
      * @return
      */
-    public BuilderWriter append(double d) {
+    public BuilderWriter append(double d)
+    {
         builder.append(d);
         return this;
     }
@@ -91,7 +99,8 @@ public class BuilderWriter {
      * @param f
      * @return
      */
-    public BuilderWriter append(float f) {
+    public BuilderWriter append(float f)
+    {
         builder.append(f);
         return this;
     }
@@ -101,7 +110,8 @@ public class BuilderWriter {
      * @param i
      * @return
      */
-    public BuilderWriter append(int i) {
+    public BuilderWriter append(int i)
+    {
         builder.append(i);
         return this;
     }
@@ -111,7 +121,8 @@ public class BuilderWriter {
      * @param lng
      * @return
      */
-    public BuilderWriter append(long lng) {
+    public BuilderWriter append(long lng)
+    {
         builder.append(lng);
         return this;
     }
@@ -119,12 +130,16 @@ public class BuilderWriter {
     /**
      * Writes Data stored in the StringBuilder to the File
      */
-    public void write() {
-        try {
+    public void write()
+    {
+        try
+        {
             writer.write(builder.toString());
             writer.flush();
             writer.close();
-        } catch (IOException ex) {
+        }
+        catch(IOException ex)
+        {
             Logger.getLogger(BuilderWriter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

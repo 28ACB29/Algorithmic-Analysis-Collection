@@ -4,13 +4,12 @@ package graph;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 /**
  *
  * @author Arthur C. Baroi
  */
-public class VertexNode {
+public class VertexNode
+{
 
     /**
      * Color Value for Breadth First Search Algorithm
@@ -49,10 +48,12 @@ public class VertexNode {
 
     /**
      * Constructor
-     * @param vertex 
+     *
+     * @param vertex
      * @param neighbor
      */
-    public VertexNode(int vertex, int neighbor) {
+    public VertexNode(int vertex, int neighbor)
+    {
         this.color = "";
         this.distance = 0;
         this.neighbor = neighbor;
@@ -64,12 +65,14 @@ public class VertexNode {
 
     /**
      * Constructor
-     * @param vertex 
+     *
+     * @param vertex
      * @param neighbor
      * @param previous
      * @param next
      */
-    public VertexNode(int vertex, int neighbor, VertexNode previous, VertexNode next) {
+    public VertexNode(int vertex, int neighbor, VertexNode previous, VertexNode next)
+    {
         this.color = "";
         this.distance = 0;
         this.neighbor = neighbor;
@@ -82,98 +85,112 @@ public class VertexNode {
     /**
      * @return The Color
      */
-    public String getColor() {
+    public String getColor()
+    {
         return color;
     }
 
     /**
      * @return The Distance
      */
-    public int getDistance() {
+    public int getDistance()
+    {
         return distance;
     }
 
     /**
      * @return The Neighbor
      */
-    public int getNeighbor() {
+    public int getNeighbor()
+    {
         return neighbor;
     }
 
     /**
      * @return The Next Node
      */
-    public VertexNode getNext() {
+    public VertexNode getNext()
+    {
         return next;
     }
 
     /**
      * @return The Predecessor Node
      */
-    public VertexNode getPredecessor() {
+    public VertexNode getPredecessor()
+    {
         return predecessor;
     }
 
     /**
      * @return The Previous Node
      */
-    public VertexNode getPrevious() {
+    public VertexNode getPrevious()
+    {
         return previous;
     }
 
     /**
      * @return The Vertex
      */
-    public int getVertex() {
+    public int getVertex()
+    {
         return vertex;
     }
 
     /**
      * @param color The Color to set
      */
-    public void setColor(String color) {
+    public void setColor(String color)
+    {
         this.color = color;
     }
 
     /**
      * @param distance The Distance to set
      */
-    public void setDistance(int distance) {
+    public void setDistance(int distance)
+    {
         this.distance = distance;
     }
 
     /**
      * @param neighbor The Neighbor to set
      */
-    public void setNeighbor(int neighbor) {
+    public void setNeighbor(int neighbor)
+    {
         this.neighbor = neighbor;
     }
 
     /**
      * @param next The Next Node to set
      */
-    public void setNext(VertexNode next) {
+    public void setNext(VertexNode next)
+    {
         this.next = next;
     }
 
     /**
      * @param predecessor The Predecessor Node to set
      */
-    public void setPredecessor(VertexNode predecessor) {
+    public void setPredecessor(VertexNode predecessor)
+    {
         this.predecessor = predecessor;
     }
 
     /**
      * @param previous The Previous Node to set
      */
-    public void setPrevious(VertexNode previous) {
+    public void setPrevious(VertexNode previous)
+    {
         this.previous = previous;
     }
 
     /**
      * @param vertex The Vertex to set
      */
-    public void setVertex(int vertex) {
+    public void setVertex(int vertex)
+    {
         this.vertex = vertex;
     }
 }
