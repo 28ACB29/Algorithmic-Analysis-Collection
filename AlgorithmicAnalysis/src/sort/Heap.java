@@ -10,20 +10,20 @@ import java.util.ArrayList;
  *
  * @author Arthur C. Baroi
  */
-public class Heap
+public class Heap<T extends Comparable<T>>
 {
 
     /**
      * Heap for Heap Sort
      */
-    private ArrayList<Integer> heap;
+    private ArrayList<T> heap;
 
     /**
      * Default Constructor
      */
     public Heap()
     {
-        heap = new ArrayList<Integer>();
+        this.heap = new ArrayList<T>();
     }
 
     /**
@@ -31,14 +31,14 @@ public class Heap
      *
      * @param input
      */
-    public Heap(Heap input)
+    public Heap(Heap<T> input)
     {
         final int size;
         size = input.heap.size();
-        heap = new ArrayList<Integer>(size);
+        this.heap = new ArrayList<T>(size);
         for(int i = 0; i < size; i++)
         {
-            heap.add(i, input.get(i));
+            this.heap.add(i, input.get(i));
         }
     }
 
@@ -47,15 +47,9 @@ public class Heap
      *
      * @param input
      */
-    public Heap(int[] input)
+    public Heap(ArrayList<T> input)
     {
-        final int length;
-        length = input.length;
-        heap = new ArrayList<Integer>(length);
-        for(int i = 0; i < length; i++)
-        {
-            heap.add(i, input[i]);
-        }
+        this.heap = new ArrayList<T>(input);
     }
 
     /**
@@ -66,10 +60,10 @@ public class Heap
      */
     public void exchange(int index1, int index2)
     {
-        int temp;
-        temp = get(index1);
-        set(index1, get(index2));
-        set(index2, temp);
+        T temp;
+        temp = this.get(index1);
+        this.set(index1, this.get(index2));
+        this.set(index2, temp);
     }
 
     /**
@@ -78,9 +72,9 @@ public class Heap
      * @param index
      * @return The Element at the Index Given
      */
-    public int get(int index)
+    public T get(int index)
     {
-        return heap.get(index);
+        return this.heap.get(index);
     }
 
     /**
@@ -89,7 +83,7 @@ public class Heap
      */
     public boolean isEmpty()
     {
-        return heap.isEmpty();
+        return this.heap.isEmpty();
     }
 
     /**
@@ -98,9 +92,9 @@ public class Heap
      * @param index
      * @return The Left Child at the Index Given
      */
-    public int leftChild(int index)
+    public T leftChild(int index)
     {
-        return heap.get(leftChildIndex(index));
+        return this.heap.get(leftChildIndex(index));
     }
 
     /**
@@ -120,9 +114,9 @@ public class Heap
      * @param index
      * @return The Parent at the Index Given
      */
-    public int parent(int index)
+    public T parent(int index)
     {
-        return heap.get(parentIndex(index));
+        return this.heap.get(parentIndex(index));
     }
 
     /**
@@ -148,9 +142,9 @@ public class Heap
      *
      * @return The Last Element
      */
-    public int pop()
+    public T pop()
     {
-        return heap.remove(heap.size() - 1);
+        return this.heap.remove(heap.size() - 1);
     }
 
     /**
@@ -158,9 +152,9 @@ public class Heap
      *
      * @param value
      */
-    public void push(int value)
+    public void push(T value)
     {
-        heap.add(value);
+        this.heap.add(value);
     }
 
     /**
@@ -169,9 +163,9 @@ public class Heap
      * @param index
      * @return The Right Child at the Index Given
      */
-    public int rightChild(int index)
+    public T rightChild(int index)
     {
-        return heap.get(rightChildIndex(index));
+        return this.heap.get(rightChildIndex(index));
     }
 
     /**
@@ -191,9 +185,9 @@ public class Heap
      * @param index
      * @param value
      */
-    public void set(int index, int value)
+    public void set(int index, T value)
     {
-        heap.set(index, value);
+        this.heap.set(index, value);
     }
 
     /**
@@ -203,6 +197,6 @@ public class Heap
      */
     public int size()
     {
-        return heap.size();
+        return this.heap.size();
     }
 }

@@ -10,8 +10,9 @@ import java.util.ArrayList;
 /**
  *
  * @author Arthur C. Baroi
+ * @param <T>
  */
-public class Sort
+public class Sort<T extends Comparable<T>>
 {
 
     /**
@@ -125,20 +126,20 @@ public class Sort
      * @param input The input Array
      * @return The Sorted Array
      */
-    public int[] InsertionSort(int[] input)
+    public ArrayList<T> InsertionSort(ArrayList<T> input)
     {
-        int[] output;
-        output = input.clone();
-        int key;
+        ArrayList<T> output;
+        output = new ArrayList<T>(input);
+        T key;
         int j;
 
         //Iterate through the entire Array
-        for(int i = 1; i < output.length; i++)
+        for(int i = 1; i < output.size(); i++)
         {
             insertionTotalCount++;
 
             //Select a Key Value to compare to
-            key = output[i];
+            key = output.get(i);
             insertionTotalCount++;
 
             //Pick the element just before the current one
@@ -147,12 +148,12 @@ public class Sort
 
             //While j is within bounds
             //and the jth element is greater than the Key Value
-            while(j > -1 && output[j] > key)
+            while(j > -1 && output.get(j).compareTo(key) > 0)
             {
                 insertionTotalCount++;
 
                 //Shift the element forward 1 place
-                output[j + 1] = output[j];
+                output.set(j + 1, output.get(j));
                 insertionTotalCount++;
 
                 //Choose the next lower position
@@ -162,7 +163,7 @@ public class Sort
             insertionTotalCount++;
 
             //Put the Key Value in the correct place
-            output[j + 1] = key;
+            output.set(j + 1, key);
             insertionTotalCount++;
         }
         return output;
@@ -176,17 +177,17 @@ public class Sort
      * @param end
      * @return The sub-array between two endpoints
      */
-    private int[] subArray(int[] input, int start, int end)
+    private ArrayList<T> subArray(ArrayList<T> input, int start, int end)
     {
-        int[] output;
-        output = new int[end - start + 1];
+        ArrayList<T> output;
+        output = new ArrayList<T>(end - start + 1);
 
         //Copy elements from start iindex to end Index
         //from the original Array to the new Array
-        for(int i = 0; i < output.length; i++)
+        for(int i = 0; i < output.size(); i++)
         {
             mergeTotalCount++;
-            output[i] = input[i + start];
+            output.set(i, input.get(i + start));
             mergeTotalCount++;
         }
         return output;
@@ -200,52 +201,52 @@ public class Sort
      * @param right
      * @return the merged Array
      */
-    private int[] Merge(int[] left, int[] right)
+    private ArrayList<T> Merge(ArrayList<T> left, ArrayList<T> right)
     {
-        int[] output;
+        ArrayList<T> output;
         int i;
-        output = new int[left.length + right.length];
+        output = new ArrayList<T>(left.size() + right.size());
 
         //Define new position indicators for both Arrays
         i = 0;
         mergeTotalCount++;
         int j = 0;
         mergeTotalCount++;
-        for(int k = 0; k < output.length; k++)
+        for(int k = 0; k < output.size(); k++)
         {
             mergeTotalCount++;
 
             //If there are no more elements on the Right Array
-            if(j >= right.length)
+            if(j >= right.size())
             {
                 mergeTotalCount++;
 
                 //Pop off the element from the Left Array
-                output[k] = left[i];
+                output.set(k, left.get(i));
                 mergeTotalCount++;
                 i += 1;
                 mergeTotalCount++;
             }
 
             //If there are no more elements on the Left Array
-            else if(i >= left.length)
+            else if(i >= left.size())
             {
                 mergeTotalCount++;
 
                 //Pop off the element from the Right Array
-                output[k] = right[j];
+                output.set(k, right.get(j));
                 mergeTotalCount++;
                 j += 1;
                 mergeTotalCount++;
             }
 
             //If the Left head is less than the Right head
-            else if(left[i] <= right[j])
+            else if(left.get(i).compareTo(right.get(j)) <= 0)
             {
                 mergeTotalCount++;
 
                 //Pop off the element from the Left Array
-                output[k] = left[i];
+                output.set(k, left.get(i));
                 mergeTotalCount++;
                 i += 1;
                 mergeTotalCount++;
@@ -257,7 +258,7 @@ public class Sort
                 mergeTotalCount++;
 
                 //Pop off the element from the Right Array
-                output[k] = right[j];
+                output.set(k, right.get(j));
                 mergeTotalCount++;
                 j += 1;
                 mergeTotalCount++;
@@ -272,14 +273,14 @@ public class Sort
      * @param input the input Array
      * @return the sorted Array
      */
-    public int[] MergeSort(int[] input)
+    public ArrayList<T> MergeSort(ArrayList<T> input)
     {
-        int[] output;
+        ArrayList<T> output;
         int start;
         int end;
-        output = input.clone();
+        output = new ArrayList<T>(input);
         start = 0;
-        end = input.length - 1;
+        end = input.size() - 1;
 
         //If the Array is larger than 1, then perform Merge sort
         if(start < end)
@@ -291,11 +292,11 @@ public class Sort
             mergeTotalCount++;
 
             //Do a recursive sort of the first Subarray
-            int[] left = MergeSort(subArray(input, start, middle));
+            ArrayList<T> left = MergeSort(subArray(input, start, middle));
             mergeTotalCount++;
 
             //Do a recursive sort of the second Subarray
-            int[] right = MergeSort(subArray(input, middle + 1, end));
+            ArrayList<T> right = MergeSort(subArray(input, middle + 1, end));
             mergeTotalCount++;
 
             //Merge the two Subarrays together
@@ -316,15 +317,15 @@ public class Sort
      * @param index
      * @return Heap that partially observes the Heap Property
      */
-    public Heap heapify(Heap input, int index)
+    public Heap<T> heapify(Heap<T> input, int index)
     {
-        Heap output;
+        Heap<T> output;
         int leftIndex;
         int rightIndex;
         int largest;
         final int size;
-        final int value;
-        output = new Heap(input);
+        final T value;
+        output = new Heap<T>(input);
 
         //Get Child indices
         leftIndex = output.leftChildIndex(index);
@@ -336,7 +337,7 @@ public class Sort
 
         //If the Left Child Index is within the Heap
         //and Greater Than the Node Value
-        if(leftIndex <= size && output.get(leftIndex) > value)
+        if(leftIndex <= size && output.get(leftIndex).compareTo(value) > 0)
         {
             heapTotalCount++;
 
@@ -355,7 +356,7 @@ public class Sort
 
         //If the Right Child Index is within the Heap
         //and the Node Value is Greater Than The Largest value
-        if(rightIndex <= size && output.get(rightIndex) > output.get(largest))
+        if(rightIndex <= size && output.get(rightIndex).compareTo(output.get(largest)) > 0)
         {
             heapTotalCount++;
 
@@ -410,13 +411,13 @@ public class Sort
      * @param input
      * @return The Sorted Array
      */
-    public int[] heapSort(int[] input)
+    public ArrayList<T> heapSort(ArrayList<T> input)
     {
-        Heap temp;
-        int[] output;
+        Heap<T> temp;
+        ArrayList<T> output;
         final int lastIndex;
-        temp = new Heap(input);
-        output = new int[input.length];
+        temp = new Heap<T>(input);
+        output = new ArrayList<T>(input.size());
 
         //Create a new Heap
         temp = buildHeap(temp);
@@ -433,7 +434,7 @@ public class Sort
             heapTotalCount++;
 
             //Remove Last Element from the Heap and add it to the Output Array
-            output[i] = temp.pop();
+            output.set(i, temp.pop());
             heapTotalCount++;
 
             //Restore Heap Property
@@ -446,7 +447,7 @@ public class Sort
         {
 
             //Remove Last Element from the Heap and add it to the Output Array
-            output[0] = temp.pop();
+            output.set(0, temp.pop());
         }
         heapTotalCount++;
         return output;
@@ -472,37 +473,37 @@ public class Sort
      * @return A partitioned Array with Values that are greater than
      * the value at the Pivot Index
      */
-    public int[] partitionAbove(int[] input, int pivotIndex)
+    public ArrayList<T> partitionAbove(ArrayList<T> input, int pivotIndex)
     {
         final int length;
         final int lastIndex;
-        int pivotValue;
-        ArrayList<Integer> Temp;
+        T pivotValue;
+        ArrayList<T> Temp;
         final int size;
-        int[] output;
-        length = input.length;
+        ArrayList<T> output;
+        length = input.size();
         lastIndex = length - 1;
-        pivotValue = input[pivotIndex];
-        Temp = new ArrayList<Integer>(lastIndex);
+        pivotValue = input.get(pivotIndex);
+        Temp = new ArrayList<T>(lastIndex);
 
         //Partition the Array by choosing Values greater than to the Pivot value
         for(int i = 0; i < pivotIndex; i++)
         {
             quickTotalCount++;
-            if(input[i] > pivotValue)
+            if(input.get(i).compareTo(pivotValue) > 0)
             {
                 quickTotalCount++;
-                Temp.add(input[i]);
+                Temp.add(input.get(i));
                 quickTotalCount++;
             }
         }
         for(int i = pivotIndex + 1; i < length; i++)
         {
             quickTotalCount++;
-            if(input[i] > pivotValue)
+            if(input.get(i).compareTo(pivotValue) > 0)
             {
                 quickTotalCount++;
-                Temp.add(input[i]);
+                Temp.add(input.get(i));
                 quickTotalCount++;
             }
         }
@@ -511,10 +512,10 @@ public class Sort
         //Write out the List to an Array
         //(not part of the algorithm)
         size = Temp.size();
-        output = new int[size];
+        output = new ArrayList<T>(size);
         for(int i = 0; i < size; i++)
         {
-            output[i] = Temp.get(i);
+            output.set(i, Temp.get(i));
         }
         return output;
     }
@@ -528,27 +529,27 @@ public class Sort
      * @return A partitioned Array with Values that are Lesser than
      * or equal to the Value at the Pivot Index
      */
-    public int[] partitionBelow(int[] input, int pivotIndex)
+    public ArrayList<T> partitionBelow(ArrayList<T> input, int pivotIndex)
     {
         final int length;
         final int lastIndex;
-        final int pivotValue;
-        length = input.length;
-        ArrayList<Integer> Temp;
+        final T pivotValue;
+        length = input.size();
+        ArrayList<T> Temp;
         final int size;
-        int[] output;
+        ArrayList<T> output;
         lastIndex = length - 1;
-        pivotValue = input[pivotIndex];
-        Temp = new ArrayList<Integer>(lastIndex);
+        pivotValue = input.get(pivotIndex);
+        Temp = new ArrayList<T>(lastIndex);
 
         //Partition the Array by choosing Values Lesser than or equal to the Pivot Value
         for(int i = 0; i < pivotIndex; i++)
         {
             quickTotalCount++;
-            if(input[i] <= pivotValue)
+            if(input.get(i).compareTo(pivotValue) <= 0)
             {
                 quickTotalCount++;
-                Temp.add(input[i]);
+                Temp.add(input.get(i));
                 quickTotalCount++;
             }
         }
@@ -556,10 +557,10 @@ public class Sort
         for(int i = pivotIndex + 1; i < length; i++)
         {
             quickTotalCount++;
-            if(input[i] <= pivotValue)
+            if(input.get(i).compareTo(pivotValue) <= 0)
             {
                 quickTotalCount++;
-                Temp.add(input[i]);
+                Temp.add(input.get(i));
                 quickTotalCount++;
             }
         }
@@ -568,10 +569,10 @@ public class Sort
         //Write out the List to an Array
         //(not part of the algorithm)
         size = Temp.size();
-        output = new int[size];
+        output = new ArrayList<T>(size);
         for(int i = 0; i < size; i++)
         {
-            output[i] = Temp.get(i);
+            output.set(i, Temp.get(i));
         }
         return output;
     }
@@ -582,33 +583,33 @@ public class Sort
      * @param input the input Array
      * @return The sorted Array
      */
-    public int[] QuickSort(int[] input)
+    public ArrayList<T> QuickSort(ArrayList<T> input)
     {
-        int[] output;
+        ArrayList<T> output;
         final int pivotIndex;
-        final int pivotValue;
-        final int[] below;
-        final int[] above;
-        output = input.clone();
+        final T pivotValue;
+        final ArrayList<T> below;
+        final ArrayList<T> above;
+        output = new ArrayList<T>(input);
 
         //Choose a Pivot Index randomly
-        pivotIndex = generatePivotIndex(input.length);
+        pivotIndex = generatePivotIndex(input.size());
         quickTotalCount++;
 
         //If Array is greater than 1
-        if(0 < output.length - 1)
+        if(0 < output.size() - 1)
         {
             quickTotalCount++;
-            pivotValue = input[pivotIndex];
+            pivotValue = input.get(pivotIndex);
 
             //partiton the Array
             below = QuickSort(partitionBelow(output, pivotIndex));
             quickTotalCount++;
             above = QuickSort(partitionAbove(output, pivotIndex));
             quickTotalCount++;
-            System.arraycopy(below, 0, output, 0, below.length);
-            output[below.length] = pivotValue;
-            System.arraycopy(above, 0, output, below.length + 1, above.length);
+            System.arraycopy(below, 0, output, 0, below.size());
+            output.set(below.size(), pivotValue);
+            System.arraycopy(above, 0, output, below.size() + 1, above.size());
         }
         quickTotalCount++;
         return output;
@@ -620,16 +621,16 @@ public class Sort
      * @param input
      * @return A formatted Array
      */
-    private static String formatArray(int[] input)
+    private String formatArray(ArrayList<T> input)
     {
         StringBuilder output = new StringBuilder();
         final int lastIndex;
-        lastIndex = input.length - 1;
+        lastIndex = input.size() - 1;
 
         //Go through and generate the String leaving the Last Member off
         for(int i = 0; i < lastIndex; i++)
         {
-            output.append(input[i]).append(Constants.separator);
+            output.append(input.get(i)).append(Constants.separator);
         }
 
         //Check if the Queue is Empty
@@ -637,7 +638,7 @@ public class Sort
         {
 
             //Append the Last Element
-            output.append(input[lastIndex]);
+            output.append(input.get(lastIndex));
         }
         return output.toString();
     }
