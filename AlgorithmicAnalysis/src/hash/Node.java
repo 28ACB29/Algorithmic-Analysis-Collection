@@ -16,7 +16,7 @@ public class Node
     /**
      *
      */
-    private int value;
+    private int key;
 
     /**
      *
@@ -35,7 +35,7 @@ public class Node
      */
     public Node(int key)
     {
-        this.value = key;
+        this.key = key;
         this.next = null;
         this.previous = null;
     }
@@ -49,7 +49,7 @@ public class Node
      */
     public Node(int key, Node previous, Node next)
     {
-        this.value = key;
+        this.key = key;
         this.next = next;
         this.previous = previous;
     }
@@ -73,9 +73,9 @@ public class Node
     /**
      * @return The Value
      */
-    public int getValue()
+    public int getKey()
     {
-        return value;
+        return key;
     }
 
     /**
@@ -95,11 +95,11 @@ public class Node
     }
 
     /**
-     * @param value The Value to set
+     * @param key The Value to set
      */
-    public void setValue(int value)
+    public void setKey(int key)
     {
-        this.value = value;
+        this.key = key;
     }
 
     /**
@@ -122,7 +122,7 @@ public class Node
         //Go through and generate the string leaving the Last Member off
         while(cursor != null && next != null)
         {
-            output.append(cursor.getValue()).append(Constants.separator);
+            output.append(cursor.getKey()).append(Constants.separator);
             cursor = next;
             next = cursor.getNext();
         }
@@ -132,7 +132,7 @@ public class Node
         {
 
             //Append the Last Member
-            output.append(cursor.getValue());
+            output.append(cursor.getKey());
         }
         return output.append(Constants.newline).toString();
     }

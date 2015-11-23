@@ -47,7 +47,7 @@ public class DivisionHashTable
         }
 
         //Find the node with the key value
-        while(cursor != null && next != null && cursor.getValue() != key)
+        while(cursor != null && next != null && cursor.getKey() != key)
         {
             cursor = next;
             if(cursor != null)
@@ -57,7 +57,7 @@ public class DivisionHashTable
         }
 
         //If the correct node is found remove it from the list
-        if(cursor != null && cursor.getValue() == key)
+        if(cursor != null && cursor.getKey() == key)
         {
             if(cursor.getPrevious() != null)
             {
@@ -122,7 +122,7 @@ public class DivisionHashTable
         }
 
         //Find the node with the key value
-        while(cursor != null && next != null && cursor.getValue() != key)
+        while(cursor != null && next != null && cursor.getKey() != key)
         {
             cursor = next;
             next = cursor.getNext();
@@ -159,7 +159,7 @@ public class DivisionHashTable
             next = cursor.getNext();
         }
         result = null;
-        while(cursor != null && cursor.getValue() != key)
+        while(cursor != null && cursor.getKey() != key)
         {
             cursor = next;
             if(cursor != null)
@@ -167,7 +167,7 @@ public class DivisionHashTable
                 next = cursor.getNext();
             }
         }
-        if(cursor != null && cursor.getValue() == key)
+        if(cursor != null && cursor.getKey() == key)
         {
             result = cursor;
         }

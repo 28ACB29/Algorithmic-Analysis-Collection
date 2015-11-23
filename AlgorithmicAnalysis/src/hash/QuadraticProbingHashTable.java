@@ -42,7 +42,7 @@ public class QuadraticProbingHashTable
         {
             index = hashFunction(key, i);
             element = table[index];
-            if(element != null && element.getValue() == key)
+            if(element != null && element.getKey() == key)
             {
                 table[index] = null;
                 return index;
@@ -123,7 +123,7 @@ public class QuadraticProbingHashTable
         {
             index = hashFunction(key, i);
             element = table[index];
-            if(element != null && element.getValue() == key)
+            if(element != null && element.getKey() == key)
             {
                 result = index;
             }
@@ -168,7 +168,7 @@ public class QuadraticProbingHashTable
             output.append(Constants.element).append(i).append(Constants.colon);
             if(quadraticProbing.get(i) != null)
             {
-                output.append(quadraticProbing.get(i).getValue());
+                output.append(quadraticProbing.get(i).getKey());
             }
             output.append(Constants.newline);
         }

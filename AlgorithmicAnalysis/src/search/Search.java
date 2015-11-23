@@ -6,10 +6,12 @@
 package search;
 
 import constants.Constants;
-import graph.AdjacencyList;
-import graph.VertexNode;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import search.graph.AdjacencyList;
+import search.graph.VertexNode;
+import search.tree.MiniMaxGame;
+import search.tree.Tree;
 
 /**
  *
@@ -120,4 +122,64 @@ public class Search
         return output.toString();
     }
 
+    /**
+     *
+     * @param node
+     * @param depth
+     * @param player
+     * @return
+     */
+    public static int minimax(Tree<MiniMaxGame> node, int depth, String player)
+    {
+        int bestValue;
+        int value;
+        if(depth == 0 || node.isLeaf())
+        {
+            return node.getNode().heuristic();
+        }
+        else if(player.equals(MiniMaxGame.MAX))
+        {
+            bestValue = Integer.MIN_VALUE;
+            for(Tree<MiniMaxGame> child : node.getChildren())
+            {
+                value = minimax(child, depth - 1, MiniMaxGame.MIN);
+                bestValue = Math.max(value, bestValue);
+            }
+            return bestValue;
+        }
+        else// if(player.equals(MiniMaxGame.MIN))
+        {
+            bestValue = Integer.MAX_VALUE;
+            for(Tree<MiniMaxGame> child : node.getChildren())
+            {
+                value = minimax(child, depth - 1, MiniMaxGame.MAX);
+                bestValue = Math.min(value, bestValue);
+            }
+            return bestValue;
+        }
+    }
+
+    /**
+     *
+     * @param node
+     * @param depth
+     * @param player
+     * @return
+     */
+    public static int negamax(Tree<MiniMaxGame> node, int depth, String player)
+    {
+        int bestValue;
+        int value;
+        if(depth == 0 || node.isLeaf())
+        {
+            return (node.getNode().heuristic() * (player.equals(MiniMaxGame.MAX) ? 1 : -1));
+        }
+        bestValue = Integer.MIN_VALUE;
+        for(Tree<MiniMaxGame> child : node.getChildren())
+        {
+            value = minimax(child, depth - 1, player.equals(MiniMaxGame.MAX) ? MiniMaxGame.MIN : MiniMaxGame.MAX);
+            bestValue = Math.max(value, bestValue);
+        }
+        return bestValue;
+    }
 }

@@ -52,7 +52,7 @@ public class MultiplicationHashTable
         }
 
         //Find the node with the Key value
-        while(cursor != null && cursor.getValue() != key)
+        while(cursor != null && cursor.getKey() != key)
         {
             cursor = next;
             if(cursor != null)
@@ -62,7 +62,7 @@ public class MultiplicationHashTable
         }
 
         //If the correct node is found remove it from the list
-        if(cursor != null && cursor.getValue() == key)
+        if(cursor != null && cursor.getKey() == key)
         {
             if(cursor.getPrevious() != null)
             {
@@ -182,7 +182,7 @@ public class MultiplicationHashTable
             next = cursor.getNext();
         }
         Node result = null;
-        while(cursor != null && cursor.getValue() != key)
+        while(cursor != null && cursor.getKey() != key)
         {
             cursor = next;
             if(cursor != null)
@@ -190,7 +190,7 @@ public class MultiplicationHashTable
                 next = cursor.getNext();
             }
         }
-        if(cursor != null && cursor.getValue() == key)
+        if(cursor != null && cursor.getKey() == key)
         {
             result = cursor;
         }
