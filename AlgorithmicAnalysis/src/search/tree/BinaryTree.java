@@ -189,7 +189,7 @@ public class BinaryTree<T>
         {
             this.left.inOrderTraversalHelper(nodes);
         }
-        nodes.add(Node);
+        nodes.add(this.Node);
         if(this.right != null)
         {
             this.right.inOrderTraversalHelper(nodes);
@@ -208,7 +208,7 @@ public class BinaryTree<T>
         {
             this.left.inOrderTraversalHelper(nodes);
         }
-        nodes.add(Node);
+        nodes.add(this.Node);
         if(this.right != null)
         {
             this.right.inOrderTraversalHelper(nodes);
@@ -218,7 +218,7 @@ public class BinaryTree<T>
 
     private void preOrderTraversalHelper(ArrayList<T> nodes)
     {
-        nodes.add(Node);
+        nodes.add(this.Node);
         if(this.left != null)
         {
             this.left.preOrderTraversalHelper(nodes);
@@ -237,7 +237,7 @@ public class BinaryTree<T>
     {
         ArrayList<T> nodes;
         nodes = new ArrayList<T>(this.getCount());
-        nodes.add(Node);
+        nodes.add(this.Node);
         if(this.left != null)
         {
             this.left.preOrderTraversalHelper(nodes);
@@ -259,7 +259,7 @@ public class BinaryTree<T>
         {
             this.right.postOrderTraversalHelper(nodes);
         }
-        nodes.add(Node);
+        nodes.add(this.Node);
     }
 
     /**
@@ -278,7 +278,7 @@ public class BinaryTree<T>
         {
             this.right.postOrderTraversalHelper(nodes);
         }
-        nodes.add(Node);
+        nodes.add(this.Node);
         return nodes;
     }
 

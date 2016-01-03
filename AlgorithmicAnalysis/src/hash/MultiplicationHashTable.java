@@ -10,7 +10,7 @@ import constants.Constants;
  *
  * @author Arthur C. Baroi
  */
-public class MultiplicationHashTable
+public class MultiplicationHashTable<T>
 {
 
     /**
@@ -21,7 +21,7 @@ public class MultiplicationHashTable
     /**
      * Table of Lists
      */
-    private Node[] table;
+    private Node<T>[] table;
 
     /**
      * Constructor
@@ -30,7 +30,7 @@ public class MultiplicationHashTable
      */
     public MultiplicationHashTable(int size)
     {
-        table = new Node[size];
+        this.table = (Node<T>[]) new Object[size];
     }
 
     /**
@@ -38,13 +38,13 @@ public class MultiplicationHashTable
      *
      * @param key
      */
-    public void delete(int key)
+    public void delete(T key)
     {
         final int index;
-        Node cursor;
-        Node next;
+        Node<T> cursor;
+        Node<T> next;
         index = hashFunction(key);
-        cursor = table[index];
+        cursor = this.table[index];
         next = null;
         if(cursor != null)
         {
@@ -97,9 +97,9 @@ public class MultiplicationHashTable
      * @param index
      * @return The node at the Index given
      */
-    public Node get(int index)
+    public Node<T> get(int index)
     {
-        return table[index];
+        return this.table[index];
     }
 
     /**
@@ -109,8 +109,23 @@ public class MultiplicationHashTable
      */
     public int getSize()
     {
-        return table.length;
+        return this.table.length;
+    }
 
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder output = new StringBuilder();
+        output.append(Constants.multiplicationHashTableTitle).append(Constants.newline).append(Constants.newline);
+        for(int i = 0; i < this.table.length; i++)
+        {
+            output.append(Constants.element).append(i).append(Node.formatList(this.table[i]));
+        }
+        return output.append(Constants.newline).toString();
     }
 
     /**
@@ -119,12 +134,12 @@ public class MultiplicationHashTable
      * @param key
      * @return Hash
      */
-    public int hashFunction(int key)
+    public int hashFunction(T key)
     {
         final double fraction;
         final double index;
-        fraction = extractFraction(knuthContant * key);
-        index = (double) table.length * fraction;
+        fraction = extractFraction(MultiplicationHashTable.knuthContant * (double) key.hashCode());
+        index = (double) this.table.length * fraction;
         return (int) (index);
     }
 
@@ -133,13 +148,13 @@ public class MultiplicationHashTable
      *
      * @param key
      */
-    public void insert(int key)
+    public void insert(T key)
     {
         final int index;
-        Node cursor;
-        Node next;
+        Node<T> cursor;
+        Node<T> next;
         index = hashFunction(key);
-        cursor = table[index];
+        cursor = this.table[index];
         next = null;
         if(cursor != null)
         {
@@ -154,7 +169,7 @@ public class MultiplicationHashTable
         }
         if(cursor == null)
         {
-            table[index] = new Node(key);
+            this.table[index] = new Node(key);
         }
         else /*if (next == null) */
 
@@ -169,19 +184,20 @@ public class MultiplicationHashTable
      * @param key
      * @return The Key
      */
-    public Node search(int key)
+    public Node search(T key)
     {
         final int index;
-        Node cursor;
-        Node next;
+        Node<T> cursor;
+        Node<T> next;
+        Node<T> result;
         index = hashFunction(key);
-        cursor = table[index];
+        cursor = this.table[index];
         next = null;
         if(cursor != null)
         {
             next = cursor.getNext();
         }
-        Node result = null;
+        result = null;
         while(cursor != null && cursor.getKey() != key)
         {
             cursor = next;
@@ -204,7 +220,7 @@ public class MultiplicationHashTable
      * @param key
      * @return a String stating if a Chained Hash Search was successful
      */
-    public static String checkChainedHashSearch(Node node, int key)
+    public String checkChainedHashSearch(Node<T> node, int key)
     {
         StringBuilder output = new StringBuilder();
         output.append("Search was ");
@@ -225,7 +241,7 @@ public class MultiplicationHashTable
      * @param multiply
      * @return A Formatted Multiplication Hash Table
      */
-    public static String formatMultiplicationHashTable(MultiplicationHashTable multiply)
+    public String formatMultiplicationHashTable(MultiplicationHashTable<T> multiply)
     {
         StringBuilder output = new StringBuilder();
         output.append(Constants.multiplicationHashTableTitle).append(Constants.newline).append(Constants.newline);

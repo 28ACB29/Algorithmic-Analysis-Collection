@@ -10,13 +10,13 @@ import constants.Constants;
  *
  * @author Arthur C. Baroi
  */
-public class QuadraticProbingHashTable
+public class QuadraticProbingHashTable<T>
 {
 
     /**
      *
      */
-    private Node[] table;
+    private Node<T>[] table;
 
     /**
      * Default Constructor
@@ -25,7 +25,7 @@ public class QuadraticProbingHashTable
      */
     public QuadraticProbingHashTable(int size)
     {
-        table = new Node[size];
+        this.table = (Node<T>[]) new Object[size];
     }
 
     /**
@@ -34,17 +34,17 @@ public class QuadraticProbingHashTable
      * @param key
      * @return The Location
      */
-    public int delete(int key)
+    public int delete(T key)
     {
         int index;
-        Node element;
-        for(int i = 0; i < table.length; i++)
+        Node<T> element;
+        for(int i = 0; i < this.table.length; i++)
         {
             index = hashFunction(key, i);
-            element = table[index];
+            element = this.table[index];
             if(element != null && element.getKey() == key)
             {
-                table[index] = null;
+                this.table[index] = null;
                 return index;
             }
         }
@@ -57,9 +57,9 @@ public class QuadraticProbingHashTable
      * @param index
      * @return The Node at the Index given
      */
-    public Node get(int index)
+    public Node<T> get(int index)
     {
-        return table[index];
+        return this.table[index];
     }
 
     /**
@@ -69,8 +69,30 @@ public class QuadraticProbingHashTable
      */
     public int getSize()
     {
-        return table.length;
+        return this.table.length;
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder output = new StringBuilder();
+        output.append(Constants.quadraticProbingHashTableTitle).append(Constants.newline).append(Constants.newline);
+        for(int i = 0; i < this.table.length; i++)
+        {
+            output.append(Constants.element).append(i).append(Constants.colon);
+            if(this.get(i) != null)
+            {
+                output.append(this.table[i].getKey());
+            }
+            output.append(Constants.newline);
+        }
+        return output.toString();
+    }
+
 
     /**
      * Hash function for the Table
@@ -79,9 +101,9 @@ public class QuadraticProbingHashTable
      * @param attempts
      * @return Hash
      */
-    public int hashFunction(int key, int attempts)
+    public int hashFunction(T key, int attempts)
     {
-        return (key % table.length + attempts * attempts) % table.length;
+        return (key.hashCode() % this.table.length + attempts * attempts) % this.table.length;
     }
 
     /**
@@ -90,17 +112,17 @@ public class QuadraticProbingHashTable
      * @param key
      * @return The Location
      */
-    public int insert(int key)
+    public int insert(T key)
     {
         int index;
-        Node element;
-        for(int i = 0; i < table.length; i++)
+        Node<T> element;
+        for(int i = 0; i < this.table.length; i++)
         {
             index = hashFunction(key, i);
-            element = table[index];
+            element = this.table[index];
             if(element == null)
             {
-                table[index] = new Node(key);
+                this.table[index] = new Node(key);
                 return index;
             }
         }
@@ -113,16 +135,16 @@ public class QuadraticProbingHashTable
      * @param key
      * @return The Location
      */
-    public int search(int key)
+    public int search(T key)
     {
         int result;
         int index;
-        Node element;
+        Node<T> element;
         result = -1;
-        for(int i = 0; i < table.length; i++)
+        for(int i = 0; i < this.table.length; i++)
         {
             index = hashFunction(key, i);
-            element = table[index];
+            element = this.table[index];
             if(element != null && element.getKey() == key)
             {
                 result = index;
@@ -138,7 +160,7 @@ public class QuadraticProbingHashTable
      * @param key
      * @return a String stating if a Probed Hash Search was successful
      */
-    public static String checkProbedHashSearch(int index, int key)
+    public String checkProbedHashSearch(int index, T key)
     {
         StringBuilder output = new StringBuilder();
         output.append("Search was ");
@@ -159,7 +181,7 @@ public class QuadraticProbingHashTable
      * @param quadraticProbing
      * @return A Formatted Quadratic Probing Hash Table
      */
-    public static String formatQuadraticProbingHashTable(QuadraticProbingHashTable quadraticProbing)
+    public String formatQuadraticProbingHashTable(QuadraticProbingHashTable<T> quadraticProbing)
     {
         StringBuilder output = new StringBuilder();
         output.append(Constants.quadraticProbingHashTableTitle).append(Constants.newline).append(Constants.newline);

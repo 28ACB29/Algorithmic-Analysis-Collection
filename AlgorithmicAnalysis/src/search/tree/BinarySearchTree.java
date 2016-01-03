@@ -5,6 +5,8 @@
  */
 package search.tree;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Arthur C. Baroi
@@ -50,6 +52,50 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T>
     public BinarySearchTree<T> getRight()
     {
         return (BinarySearchTree<T>) super.getRight();
+    }
+
+    private void getWithinRangeHelper(ArrayList<T> rangeQuery, T lower, T upper)
+    {
+        if(this.getLeft() != null)
+        {
+            this.getLeft().getWithinRangeHelper(rangeQuery, lower, upper);
+        }
+        if(this.getNode().compareTo(lower) > -1 && this.getNode().compareTo(upper) < 1)
+        {
+            rangeQuery.add(this.getNode());
+        }
+        if(this.getRight() != null)
+        {
+            this.getRight().getWithinRangeHelper(rangeQuery, lower, upper);
+        }
+    }
+
+    /**
+     *
+     * @param lower
+     * @param upper
+     * @return
+     */
+    public ArrayList<T> getWithinRange(T lower, T upper)
+    {
+        ArrayList<T> rangeQuery;
+        rangeQuery = new ArrayList<T>();
+        if(lower.compareTo(upper) > -1)
+        {
+            if(this.getLeft() != null)
+            {
+                this.getLeft().getWithinRangeHelper(rangeQuery, lower, upper);
+            }
+            if(this.getNode().compareTo(lower) > -1 && this.getNode().compareTo(upper) < 1)
+            {
+                rangeQuery.add(this.getNode());
+            }
+            if(this.getRight() != null)
+            {
+                this.getRight().getWithinRangeHelper(rangeQuery, lower, upper);
+            }
+        }
+        return rangeQuery;
     }
 
     /**

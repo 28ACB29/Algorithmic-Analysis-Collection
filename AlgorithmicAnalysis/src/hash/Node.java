@@ -10,30 +10,30 @@ import constants.Constants;
  *
  * @author Arthur C. Baroi
  */
-public class Node
+public class Node<T>
 {
 
     /**
      *
      */
-    private int key;
+    private T key;
 
     /**
      *
      */
-    private Node next;
+    private Node<T> next;
 
     /**
      *
      */
-    private Node previous;
+    private Node<T> previous;
 
     /**
      * Constructor
      *
      * @param key
      */
-    public Node(int key)
+    public Node(T key)
     {
         this.key = key;
         this.next = null;
@@ -47,7 +47,7 @@ public class Node
      * @param previous
      * @param next
      */
-    public Node(int key, Node previous, Node next)
+    public Node(T key, Node<T> previous, Node<T> next)
     {
         this.key = key;
         this.next = next;
@@ -57,7 +57,7 @@ public class Node
     /**
      * @return The Next Node
      */
-    public Node getNext()
+    public Node<T> getNext()
     {
         return next;
     }
@@ -65,7 +65,7 @@ public class Node
     /**
      * @return The Previous Node
      */
-    public Node getPrevious()
+    public Node<T> getPrevious()
     {
         return previous;
     }
@@ -73,7 +73,7 @@ public class Node
     /**
      * @return The Value
      */
-    public int getKey()
+    public T getKey()
     {
         return key;
     }
@@ -81,7 +81,7 @@ public class Node
     /**
      * @param next The Next Node to set
      */
-    public void setNext(Node next)
+    public void setNext(Node<T> next)
     {
         this.next = next;
     }
@@ -89,7 +89,7 @@ public class Node
     /**
      * @param previous The Previous Node to set
      */
-    public void setPrevious(Node previous)
+    public void setPrevious(Node<T> previous)
     {
         this.previous = previous;
     }
@@ -97,10 +97,45 @@ public class Node
     /**
      * @param key The Value to set
      */
-    public void setKey(int key)
+    public void setKey(T key)
     {
         this.key = key;
     }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder output = new StringBuilder();
+        output.append(Constants.colon);
+        Node cursor = this;
+        Node next = null;
+        if(cursor != null)
+        {
+            next = cursor.next;
+        }
+
+        //Go through and generate the string leaving the Last Member off
+        while(cursor != null && next != null)
+        {
+            output.append(cursor.key).append(Constants.separator);
+            cursor = next;
+            next = cursor.next;
+        }
+
+        //Check if the List is Empty
+        if(cursor != null)
+        {
+
+            //Append the Last Member
+            output.append(cursor.key);
+        }
+        return output.append(Constants.newline).toString();
+    }
+
 
     /**
      * Formats a List

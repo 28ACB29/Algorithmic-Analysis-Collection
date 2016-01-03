@@ -10,13 +10,13 @@ import constants.Constants;
  *
  * @author Arthur C. Baroi
  */
-public class DivisionHashTable
+public class DivisionHashTable<T>
 {
 
     /**
      * Table of Lists
      */
-    private Node[] table;
+    private Node<T>[] table;
 
     /**
      * Constructor
@@ -25,7 +25,7 @@ public class DivisionHashTable
      */
     public DivisionHashTable(int size)
     {
-        table = new Node[size];
+        this.table = (Node<T>[]) new Object[size];
     }
 
     /**
@@ -33,13 +33,13 @@ public class DivisionHashTable
      *
      * @param key
      */
-    public void delete(int key)
+    public void delete(T key)
     {
         final int index;
-        Node cursor;
-        Node next;
+        Node<T> cursor;
+        Node<T> next;
         index = hashFunction(key);
-        cursor = table[index];
+        cursor = this.table[index];
         next = null;
         if(cursor != null)
         {
@@ -77,9 +77,9 @@ public class DivisionHashTable
      * @param index
      * @return the the node at the index given
      */
-    public Node get(int index)
+    public Node<T> get(int index)
     {
-        return table[index];
+        return this.table[index];
     }
 
     /**
@@ -89,7 +89,23 @@ public class DivisionHashTable
      */
     public int getSize()
     {
-        return table.length;
+        return this.table.length;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder output = new StringBuilder();
+        output.append(Constants.divisionHashTableTitle).append(Constants.newline).append(Constants.newline);
+        for(int i = 0; i < this.table.length; i++)
+        {
+            output.append(Constants.element).append(i).append(Node.formatList(this.table[i]));
+        }
+        return output.append(Constants.newline).toString();
     }
 
     /**
@@ -98,9 +114,9 @@ public class DivisionHashTable
      * @param key
      * @return Hash
      */
-    public int hashFunction(int key)
+    public int hashFunction(T key)
     {
-        return key % table.length;
+        return key.hashCode() % this.table.length;
     }
 
     /**
@@ -108,13 +124,13 @@ public class DivisionHashTable
      *
      * @param key
      */
-    public void insert(int key)
+    public void insert(T key)
     {
         final int index;
-        Node cursor;
-        Node next;
+        Node<T> cursor;
+        Node<T> next;
         index = hashFunction(key);
-        cursor = table[index];
+        cursor = this.table[index];
         next = null;
         if(cursor != null)
         {
@@ -131,7 +147,7 @@ public class DivisionHashTable
         //If the correct node is found remove it from the list
         if(cursor == null)
         {
-            table[index] = new Node(key);
+            this.table[index] = new Node(key);
         }
         else if(next == null)
         {
@@ -145,14 +161,14 @@ public class DivisionHashTable
      * @param key
      * @return Node
      */
-    public Node search(int key)
+    public Node search(T key)
     {
         final int index;
-        Node cursor;
-        Node next;
-        Node result;
+        Node<T> cursor;
+        Node<T> next;
+        Node<T> result;
         index = hashFunction(key);
-        cursor = table[index];
+        cursor = this.table[index];
         next = null;
         if(cursor != null)
         {
@@ -181,7 +197,7 @@ public class DivisionHashTable
      * @param key
      * @return a String stating if a Chained Hash Search was successful
      */
-    public static String checkChainedHashSearch(Node node, int key)
+    public String checkChainedHashSearch(Node<T> node, T key)
     {
         StringBuilder output = new StringBuilder();
         output.append("Search was ");
@@ -202,7 +218,7 @@ public class DivisionHashTable
      * @param divide
      * @return A Formatted Division Hash Table
      */
-    public static String formatDivisionHashTable(DivisionHashTable divide)
+    public String formatDivisionHashTable(DivisionHashTable<T> divide)
     {
         StringBuilder output = new StringBuilder();
         output.append(Constants.divisionHashTableTitle).append(Constants.newline).append(Constants.newline);
