@@ -597,7 +597,7 @@ public class Sort<T extends Comparable<T>>
         quickTotalCount++;
 
         //If Array is greater than 1
-        if(0 < output.size() - 1)
+        if(1 < output.size())
         {
             quickTotalCount++;
             pivotValue = input.get(pivotIndex);

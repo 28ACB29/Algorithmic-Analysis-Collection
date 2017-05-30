@@ -25,7 +25,7 @@ public class Queue
      */
     public Queue(Node[] Nodes)
     {
-        queue = new ArrayList<Node>(Nodes.length);
+        this.queue = new ArrayList<Node>(Nodes.length);
         for(int i = 0; i < Nodes.length; i++)
         {
             insert(Nodes[i]);
@@ -40,7 +40,7 @@ public class Queue
      */
     public Queue(char[] characters, int[] frequencies)
     {
-        queue = new ArrayList<Node>(characters.length);
+        this.queue = new ArrayList<Node>(characters.length);
         Node node;
         for(int i = 0; i < characters.length; i++)
         {
@@ -60,27 +60,27 @@ public class Queue
         index = 0;
 
         //Go through all the Indices and see if the Element fits anywhere
-        while(index < queue.size() && (queue.get(index).getFrequency() > node.getFrequency()))
+        while(index < this.queue.size() && (this.queue.get(index).getFrequency() > node.getFrequency()))
         {
             index++;
         }
 
         //If the Element is within the Queue
-        if(index < queue.size())
+        if(index < this.queue.size())
         {
 
             //Add the Element at the current Index
             //and shift the Elements after the current index forward
-            queue.add(index, node);
+            this.queue.add(index, node);
         }
 
         //If the queue is Queue
         //or if the Element belongs at the end of the Queue
-        if(queue.isEmpty() || index == queue.size())
+        if(this.queue.isEmpty() || index == this.queue.size())
         {
 
             //Add the Element to the end of the list
-            queue.add(node);
+            this.queue.add(node);
         }
     }
 
@@ -91,7 +91,7 @@ public class Queue
      */
     public Node peek()
     {
-        return queue.get(queue.size() - 1);
+        return this.queue.get(this.queue.size() - 1);
     }
 
     /**
@@ -101,6 +101,6 @@ public class Queue
      */
     public Node pop()
     {
-        return queue.remove(queue.size() - 1);
+        return this.queue.remove(this.queue.size() - 1);
     }
 }

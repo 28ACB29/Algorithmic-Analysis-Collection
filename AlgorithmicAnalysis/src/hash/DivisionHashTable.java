@@ -147,11 +147,11 @@ public class DivisionHashTable<T>
         //If the correct node is found remove it from the list
         if(cursor == null)
         {
-            this.table[index] = new Node(key);
+            this.table[index] = new Node<T>(key);
         }
         else if(next == null)
         {
-            cursor.setNext(new Node(key, cursor, null));
+            cursor.setNext(new Node<T>(key, cursor, null));
         }
     }
 
@@ -161,7 +161,7 @@ public class DivisionHashTable<T>
      * @param key
      * @return Node
      */
-    public Node search(T key)
+    public Node<T> search(T key)
     {
         final int index;
         Node<T> cursor;

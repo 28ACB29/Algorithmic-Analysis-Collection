@@ -16,7 +16,7 @@ public class Tree<T>
 
     private T Node;
 
-    private ArrayList<Tree> children;
+    private ArrayList<Tree<T>> children;
 
     /**
      *
@@ -24,7 +24,7 @@ public class Tree<T>
     public Tree()
     {
         this.Node = null;
-        this.children = new ArrayList<Tree>();
+        this.children = new ArrayList<Tree<T>>();
     }
 
     /**
@@ -33,7 +33,7 @@ public class Tree<T>
     public Tree(T node)
     {
         this.Node = node;
-        this.children = new ArrayList<Tree>();
+        this.children = new ArrayList<Tree<T>>();
     }
 
     /**
@@ -42,7 +42,7 @@ public class Tree<T>
     public Tree(int i)
     {
         this.Node = null;
-        this.children = new ArrayList<Tree>(i);
+        this.children = new ArrayList<Tree<T>>(i);
     }
 
     /**
@@ -50,7 +50,7 @@ public class Tree<T>
      * @param Node
      * @param children
      */
-    public Tree(T Node, ArrayList<Tree> children)
+    public Tree(T Node, ArrayList<Tree<T>> children)
     {
         this.Node = Node;
         this.children = children;
@@ -75,7 +75,7 @@ public class Tree<T>
     /**
      * @return the children
      */
-    public ArrayList<Tree> getChildren()
+    public ArrayList<Tree<T>> getChildren()
     {
         return children;
     }
@@ -83,7 +83,7 @@ public class Tree<T>
     /**
      * @param children the children to set
      */
-    public void setChildren(ArrayList<Tree> children)
+    public void setChildren(ArrayList<Tree<T>> children)
     {
         this.children = children;
     }
@@ -140,5 +140,30 @@ public class Tree<T>
             paths += child.getNumberOfPaths() > 1 ? child.getNumberOfPaths() : 1;
         }
         return paths;
+    }
+
+    /**
+     *
+     * @param o
+     * @return
+     */
+    @Override
+    public boolean equals(Object o)
+    {
+        if(o instanceof Tree && this.Node.equals(((Tree)o).getNode()) && this.children.size() == ((Tree)o).getChildren().size())
+        {
+            for(int i = 0; i < this.children.size(); i++)
+            {
+                if(!this.children.get(i).equals(((Tree)o).getChildren().get(i)))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

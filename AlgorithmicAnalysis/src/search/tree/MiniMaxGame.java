@@ -13,11 +13,11 @@ import java.util.Set;
  */
 public interface MiniMaxGame extends Comparable<MiniMaxGame>
 {
-    final String MAX = "max";
+    public static final String MAX = "max";
 
-    final String MIN = "min";
+    public static final String MIN = "min";
 
-    int heuristic();
+    public int heuristic();
 
-    Set<MiniMaxGame> generateNextMoves();
+    public Set<MiniMaxGame> generateNextMoves(String player);
 }

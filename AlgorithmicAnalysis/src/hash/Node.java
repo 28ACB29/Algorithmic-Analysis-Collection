@@ -59,7 +59,7 @@ public class Node<T>
      */
     public Node<T> getNext()
     {
-        return next;
+        return this.next;
     }
 
     /**
@@ -67,7 +67,7 @@ public class Node<T>
      */
     public Node<T> getPrevious()
     {
-        return previous;
+        return this.previous;
     }
 
     /**
@@ -75,7 +75,7 @@ public class Node<T>
      */
     public T getKey()
     {
-        return key;
+        return this.key;
     }
 
     /**
@@ -111,8 +111,8 @@ public class Node<T>
     {
         StringBuilder output = new StringBuilder();
         output.append(Constants.colon);
-        Node cursor = this;
-        Node next = null;
+        Node<T> cursor = this;
+        Node<T> next = null;
         if(cursor != null)
         {
             next = cursor.next;

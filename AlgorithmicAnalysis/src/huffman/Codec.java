@@ -67,24 +67,28 @@ public class Codec
     public Codec(String message)
     {
         this.message = message;
-        generateFrequencies();
-        this.queue = new Queue(characters, frequencies);
-        createTree();
-        encodings = new String[characters.length];
-        final Node Root = queue.peek();
+        this.generateFrequencies();
+        this.queue = new Queue(Codec.characters, this.frequencies);
+        this.createTree();
+        this.encodings = new String[Codec.characters.length];
+        final Node Root;
         Node Cursor;
-        for(int i = 0; i < characters.length; i++)
+        Root = queue.peek();
+        for(int i = 0; i < Codec.characters.length; i++)
         {
 
             //Reset cursor to the root of the tree
             Cursor = Root;
-            encodings[i] = createEncodings(Cursor, "", characters[i]);
+            this.encodings[i] = createEncodings(Cursor, "", Codec.characters[i]);
         }
     }
 
     private String createEncodings(Node cursor, String branch, char character)
     {
-        StringBuilder output = new StringBuilder();
+        StringBuilder output;
+        String leftResult;
+        String rightResult;
+        output = new StringBuilder();
 
         //If the character is found
         if(cursor.getCharacter().equals(Character.toString(character)))
@@ -98,8 +102,7 @@ public class Codec
         if(cursor.getLeft() != null)
         {
 
-            //Go search through that Left Child
-            String leftResult = createEncodings(cursor.getLeft(), zero, character);
+            leftResult = createEncodings(cursor.getLeft(), Codec.zero, character);
 
             //If search was succesful
             if(!leftResult.isEmpty())
@@ -114,8 +117,7 @@ public class Codec
         if(cursor.getRight() != null)
         {
 
-            //Go search through that Right Child
-            String rightResult = createEncodings(cursor.getRight(), one, character);
+            rightResult = createEncodings(cursor.getRight(), Codec.one, character);
 
             //If search was succesful
             if(!rightResult.isEmpty())
@@ -130,23 +132,24 @@ public class Codec
 
     private void createTree()
     {
-        final int length = characters.length - 1;
+        final int length;
         Node left;
         Node right;
         int frequency;
+        length = Codec.characters.length - 1;
         for(int i = 0; i < length; i++)
         {
 
             //Find the least 2 nodes
-            left = queue.pop();
-            right = queue.pop();
+            left = this.queue.pop();
+            right = this.queue.pop();
             frequency = left.getFrequency() + right.getFrequency();
 
             //Create a node using the previous nodes as children
             Node tree = new Node(frequency, left, right);
 
             //Insert the node
-            queue.insert(tree);
+            this.queue.insert(tree);
         }
     }
 
@@ -158,10 +161,11 @@ public class Codec
      */
     public String decode(String code)
     {
-        StringBuilder output = new StringBuilder();
+        StringBuilder output;
         final Node Root;
         Node Cursor;
-        Root = queue.peek();
+        output = new StringBuilder();
+        Root = this.queue.peek();
         Cursor = Root;
 
         //Go through the code
@@ -169,7 +173,7 @@ public class Codec
         {
 
             //If the character is a 1
-            if(Character.toString(code.charAt(i)).equals(one))
+            if(Character.toString(code.charAt(i)).equals(Codec.one))
             {
 
                 //Go to the Right Child
@@ -206,7 +210,8 @@ public class Codec
      */
     public String encode(String message)
     {
-        StringBuilder output = new StringBuilder();
+        StringBuilder output;
+        output = new StringBuilder();
 
         //Go through the message
         for(int i = 0; i < message.length(); i++)
@@ -220,11 +225,11 @@ public class Codec
     {
         String encoding;
         encoding = "";
-        for(int i = 0; i < characters.length; i++)
+        for(int i = 0; i < Codec.characters.length; i++)
         {
-            if(character == characters[i])
+            if(character == Codec.characters[i])
             {
-                encoding = encodings[i];
+                encoding = this.encodings[i];
             }
         }
         return encoding;
@@ -237,24 +242,25 @@ public class Codec
      */
     public String fixedLengthDecoding(String code)
     {
-        StringBuilder output = new StringBuilder();
+        StringBuilder output;
         final int words;
         final int wordLength;
         int wordStart;
         String substring;
         String encoding;
+        output = new StringBuilder();
         wordLength = 6;
         words = code.length() / wordLength;
         for(int i = 0; i < words; i++)
         {
             wordStart = wordLength * i;
             substring = code.substring(wordStart, wordStart + wordLength);
-            for(int j = 0; j < fixedLengthEncodings.length; j++)
+            for(int j = 0; j < Codec.fixedLengthEncodings.length; j++)
             {
-                encoding = fixedLengthEncodings[j];
+                encoding = Codec.fixedLengthEncodings[j];
                 if(substring.equals(encoding))
                 {
-                    output.append(characters[j]);
+                    output.append(Codec.characters[j]);
                 }
             }
         }
@@ -267,18 +273,19 @@ public class Codec
      */
     public String fixedLengthEncoding()
     {
-        StringBuilder output = new StringBuilder();
+        StringBuilder output;
         char charAt;
         char character;
-        for(int i = 0; i < message.length(); i++)
+        output = new StringBuilder();
+        for(int i = 0; i < this.message.length(); i++)
         {
-            for(int j = 0; j < characters.length; j++)
+            for(int j = 0; j < Codec.characters.length; j++)
             {
-                charAt = message.charAt(i);
-                character = characters[j];
+                charAt = this.message.charAt(i);
+                character = Codec.characters[j];
                 if(charAt == character)
                 {
-                    output.append(fixedLengthEncodings[j]);
+                    output.append(Codec.fixedLengthEncodings[j]);
                 }
             }
         }
@@ -287,23 +294,23 @@ public class Codec
 
     private void generateFrequencies()
     {
-        frequencies = new int[characters.length];
+        this.frequencies = new int[Codec.characters.length];
 
         //Go through all the Characters in the String
-        for(int i = 0; i < message.length(); i++)
+        for(int i = 0; i < this.message.length(); i++)
         {
 
             //Go through all the Characters in the List
-            for(int j = 0; j < frequencies.length; j++)
+            for(int j = 0; j < this.frequencies.length; j++)
             {
 
                 //If the current character in the message
                 //matches the current character
-                if(message.charAt(i) == characters[j])
+                if(this.message.charAt(i) == Codec.characters[j])
                 {
 
                     //Increment frequency
-                    frequencies[j]++;
+                    this.frequencies[j]++;
                 }
             }
         }
@@ -314,7 +321,7 @@ public class Codec
      */
     public String[] getEncodings()
     {
-        return encodings;
+        return this.encodings;
     }
 
     /**
@@ -322,7 +329,7 @@ public class Codec
      */
     public int[] getFrequencies()
     {
-        return frequencies;
+        return this.frequencies;
     }
 
     /**
@@ -333,13 +340,14 @@ public class Codec
      */
     public static String formatCodec(String message)
     {
-        StringBuilder output = new StringBuilder();
+        StringBuilder output;
         Codec codec;
         final int[] codecFrequencies;
         final String[] codecEncodings;
         final String codecFixedLengthEncoding;
         final int lastIndex;
         String code;
+        output = new StringBuilder();
         output.append("Message: ").append(message).append(Constants.newline).append(characters);
         codec = new Codec(message);
         codecFrequencies = codec.getFrequencies();
@@ -385,7 +393,7 @@ public class Codec
 
         //Do Fixed Length encoding and decoding
         output.append("Message: ").append(message).append(Constants.newline);
-        output.append(characters);
+        output.append(Codec.characters);
 
         //Display characters
         for(int i = 0; i < lastIndex; i++)
